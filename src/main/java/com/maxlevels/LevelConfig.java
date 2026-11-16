@@ -1,4 +1,4 @@
-package com.enchantcap;
+package com.maxlevels;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,15 +14,15 @@ import net.kyori.adventure.key.Key;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.error.YAMLException;
 
-record MaxLevels(Map<Key, Integer> levels) {
+record LevelConfig(Map<Key, Integer> levels) {
 
-    static final MaxLevels NONE = new MaxLevels(Map.of());
+    static final LevelConfig NONE = new LevelConfig(Map.of());
 
     private static final String FILE_NAME = "config.yml";
     private static final int LOWEST = 1;
     private static final int HIGHEST = 255;
 
-    static MaxLevels load(Path dataDirectory, Consumer<String> warn) {
+    static LevelConfig load(Path dataDirectory, Consumer<String> warn) {
         Path file = dataDirectory.resolve(FILE_NAME);
         try {
             if (Files.notExists(file)) {
@@ -39,12 +39,12 @@ record MaxLevels(Map<Key, Integer> levels) {
 
     private static void writeDefault(Path file) throws IOException {
         Files.createDirectories(file.getParent());
-        try (InputStream defaults = MaxLevels.class.getResourceAsStream("/" + FILE_NAME)) {
+        try (InputStream defaults = LevelConfig.class.getResourceAsStream("/" + FILE_NAME)) {
             Files.copy(defaults, file);
         }
     }
 
-    private static MaxLevels parse(Object document, Consumer<String> warn) {
+    private static LevelConfig parse(Object document, Consumer<String> warn) {
         if (document == null) {
             return NONE;
         }
@@ -70,6 +70,6 @@ record MaxLevels(Map<Key, Integer> levels) {
                 warn.accept("Ignoring " + entry + ": " + key.asString() + " is already set");
             }
         });
-        return new MaxLevels(Collections.unmodifiableMap(levels));
+        return new LevelConfig(Collections.unmodifiableMap(levels));
     }
 }
