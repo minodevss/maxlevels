@@ -1,0 +1,6 @@
+# Maximum level per enchantment, from 1 to 255. Restart the server to apply.
+# Keys without a namespace mean minecraft:, so sharpness is minecraft:sharpness.
+#
+# sharpness: 10
+# efficiency: 10
+# mypack:lifesteal: 5
