@@ -35,7 +35,7 @@ plain_log() {
 
 await() {
   for _ in $(seq 1 600); do
-    plain_log | grep -qE "$1" && return 0
+    grep -qE "$1" <(plain_log) && return 0
     kill -0 $pid 2>/dev/null || break
     sleep 0.5
   done
@@ -62,7 +62,7 @@ trap - EXIT
 
 failed=0
 expect() {
-  if plain_log | grep -qF "$1"; then echo "ok    $1"; else echo "FAIL  $1"; failed=1; fi
+  if grep -qF "$1" <(plain_log); then echo "ok    $1"; else echo "FAIL  $1"; failed=1; fi
 }
 expect 'Max levels: sharpness 5 -> 10, efficiency 5 -> 3, enchantcap_test:lifesteal 1 -> 5'
 expect 'Unknown enchantments: missing_enchantment'
@@ -70,7 +70,7 @@ expect "Ignoring 'smite: 300': level must be a whole number from 1 to 255"
 expect 'Applied enchantment Sharpness X to'
 expect 'higher than the maximum level of 10'
 expect 'Applied enchantment Lifesteal V to'
-if plain_log | grep 'EnchantCap' | grep -qiE 'error|exception'; then
+if grep 'EnchantCap' <(plain_log) | grep -qiE 'error|exception'; then
   echo "FAIL  EnchantCap logged an error"
   failed=1
 fi
