@@ -56,10 +56,14 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v7
       - uses: actions/download-artifact@v8
         with:
           name: dist
           path: dist
-      - run: gh release create "$GITHUB_REF_NAME" dist/libs/*.jar dist/distributions/*.zip --repo "$GITHUB_REPOSITORY" --generate-notes
+      - run: gh release create "$GITHUB_REF_NAME" dist/libs/*.jar dist/distributions/*.zip --generate-notes
         env:
           GH_TOKEN: ${{ github.token }}
+      - run: scripts/publish-modrinth.sh "${GITHUB_REF_NAME#v}" dist/libs/MaxLevels-*.jar dist/distributions/MaxLevels-ResourcePack-*.zip
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
