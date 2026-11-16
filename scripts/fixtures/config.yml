@@ -3,3 +3,4 @@ minecraft:efficiency: 3
 maxlevels_test:lifesteal: 5
 missing_enchantment: 4
 smite: 300
+anvil-max-cost: 100

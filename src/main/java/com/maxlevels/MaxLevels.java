@@ -12,10 +12,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MaxLevels extends JavaPlugin {
 
-    private final LevelConfig config;
+    private final Config config;
     private final Map<Key, Integer> originalLevels;
 
-    MaxLevels(LevelConfig config, Map<Key, Integer> originalLevels) {
+    MaxLevels(Config config, Map<Key, Integer> originalLevels) {
         this.config = config;
         this.originalLevels = originalLevels;
     }
@@ -40,5 +40,9 @@ public final class MaxLevels extends JavaPlugin {
         if (!unknown.isEmpty()) {
             getSLF4JLogger().warn("Unknown enchantments: {}", String.join(", ", unknown));
         }
+        config.anvilMaxCost().ifPresent(maxCost -> {
+            getServer().getPluginManager().registerEvents(new AnvilCostLimit(maxCost), this);
+            getSLF4JLogger().info("Anvil max cost 39 -> {}", maxCost);
+        });
     }
 }

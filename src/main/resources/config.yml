@@ -4,3 +4,7 @@
 # sharpness: 10
 # efficiency: 10
 # mypack:lifesteal: 5
+#
+# Optional: the highest cost the anvil accepts, from 1 to 32766. Vanilla stops at 39.
+#
+# anvil-max-cost: 100
