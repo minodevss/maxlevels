@@ -51,7 +51,7 @@ val generateResourcePack by tasks.registering {
         root.resolve("assets/minecraft/lang").apply { mkdirs() }
             .resolve("en_us.json").writeText(JsonOutput.prettyPrint(JsonOutput.toJson(translations)))
         val pack = mapOf(
-            "description" to "EnchantCap: enchantment levels XI to CCLV",
+            "description" to "MaxLevels: enchantment levels XI to CCLV",
             "pack_format" to 34,
             "supported_formats" to listOf(34, 1000),
             "min_format" to 34,
@@ -63,7 +63,7 @@ val generateResourcePack by tasks.registering {
 
 val resourcePack by tasks.registering(Zip::class) {
     from(generateResourcePack)
-    archiveFileName = "EnchantCap-ResourcePack-$version.zip"
+    archiveFileName = "MaxLevels-ResourcePack-$version.zip"
     destinationDirectory = layout.buildDirectory.dir("distributions")
 }
 

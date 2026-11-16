@@ -1,1 +1,1 @@
-rootProject.name = "EnchantCap"
+rootProject.name = "MaxLevels"

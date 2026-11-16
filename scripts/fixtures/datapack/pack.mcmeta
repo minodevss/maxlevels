@@ -1,6 +1,6 @@
 {
   "pack": {
-    "description": "EnchantCap boot test",
+    "description": "MaxLevels boot test",
     "pack_format": 48,
     "supported_formats": [48, 1000],
     "min_format": 48,

@@ -1,4 +1,4 @@
-package com.enchantcap;
+package com.maxlevels;
 
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
@@ -10,13 +10,13 @@ import org.bukkit.Registry;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class EnchantCap extends JavaPlugin {
+public final class MaxLevels extends JavaPlugin {
 
-    private final MaxLevels maxLevels;
+    private final LevelConfig config;
     private final Map<Key, Integer> originalLevels;
 
-    EnchantCap(MaxLevels maxLevels, Map<Key, Integer> originalLevels) {
-        this.maxLevels = maxLevels;
+    MaxLevels(LevelConfig config, Map<Key, Integer> originalLevels) {
+        this.config = config;
         this.originalLevels = originalLevels;
     }
 
@@ -25,7 +25,7 @@ public final class EnchantCap extends JavaPlugin {
         Registry<Enchantment> registry = RegistryAccess.registryAccess().getRegistry(RegistryKey.ENCHANTMENT);
         List<String> applied = new ArrayList<>();
         List<String> unknown = new ArrayList<>();
-        maxLevels.levels().keySet().forEach(key -> {
+        config.levels().keySet().forEach(key -> {
             Integer original = originalLevels.get(key);
             Enchantment enchantment = registry.get(key);
             if (original == null || enchantment == null) {
@@ -35,7 +35,7 @@ public final class EnchantCap extends JavaPlugin {
             }
         });
         if (!applied.isEmpty()) {
-            getSLF4JLogger().info("Max levels: {}", String.join(", ", applied));
+            getSLF4JLogger().info("Applied {}", String.join(", ", applied));
         }
         if (!unknown.isEmpty()) {
             getSLF4JLogger().warn("Unknown enchantments: {}", String.join(", ", unknown));
