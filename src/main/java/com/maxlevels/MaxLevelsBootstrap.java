@@ -12,11 +12,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class MaxLevelsBootstrap implements PluginBootstrap {
 
     private final Map<Key, Integer> originalLevels = new HashMap<>();
-    private LevelConfig config = LevelConfig.NONE;
+    private Config config = Config.NONE;
 
     @Override
     public void bootstrap(BootstrapContext context) {
-        config = LevelConfig.load(context.getDataDirectory(), context.getLogger()::warn);
+        config = Config.load(context.getDataDirectory(), context.getLogger()::warn);
         context.getLifecycleManager().registerEventHandler(RegistryEvents.ENCHANTMENT.entryAdd().newHandler(event -> {
             Key key = event.key().key();
             Integer level = config.levels().get(key);

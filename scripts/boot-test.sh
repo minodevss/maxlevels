@@ -66,6 +66,7 @@ expect() {
 }
 expect 'Applied sharpness 5 -> 10, efficiency 5 -> 3, maxlevels_test:lifesteal 1 -> 5'
 expect 'Unknown enchantments: missing_enchantment'
+expect 'Anvil max cost 39 -> 100'
 expect "Ignoring 'smite: 300': level must be a whole number from 1 to 255"
 expect 'Applied enchantment Sharpness X to'
 expect 'higher than the maximum level of 10'
